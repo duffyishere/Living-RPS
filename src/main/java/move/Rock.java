@@ -1,14 +1,10 @@
 package move;
 
-import lombok.Getter;
-
-import javax.swing.*;
-
 public class Rock extends Move {
-    private static final String ROCK_EMOJI_PATH = "";
+    private static final String UNICODE = "\uD83E\uDEA8";
 
     public Rock(int x, int y) {
-        super(ROCK_EMOJI_PATH, x, y);
+        super(UNICODE, x, y);
     }
 
     @Override
