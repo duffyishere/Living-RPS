@@ -7,20 +7,36 @@ import java.awt.*;
 
 @Getter
 public abstract class Move extends JComponent implements Comparable<Move> {
+    public Coordinate coordinate;
+    public Coordinate speed;
     public JLabel label;
 
-    public int x, y;
-    public int velX = 2, velY = 2;
-
-    public Move(String unicode, int x, int y, int velX, int velY) {
-        this.x = x;
-        this.y = y;
-        this.velX = velX;
-        this.velY = velY;
+    public Move(String unicode, Coordinate coordinate, Coordinate speed) {
+        this.coordinate = coordinate;
+        this.speed = speed;
 
         this.label = new JLabel(unicode);
         label.setFont(new Font("Serif", Font.PLAIN, 20));
-        label.setBounds(x, y, label.getPreferredSize().width, label.getPreferredSize().height);
-        add(label);
+        label.setBounds(coordinate.x, coordinate.y, label.getPreferredSize().width, label.getPreferredSize().height);
+    }
+
+    public void updatePosition() {
+        this.coordinate.x += this.speed.x;
+        this.coordinate.y += this.speed.y;
+    }
+
+    public void checkBoundary(int width, int height) {
+        if (this.coordinate.x + this.label.getWidth() > width) {
+            this.speed.x *= -1;
+        }
+        if (this.coordinate.x < 0) {
+            this.speed.x *= -1;
+        }
+        if (this.coordinate.y + this.label.getWidth() > height) {
+            this.speed.y *= -1;
+        }
+        if (this.coordinate.y < 0) {
+            this.speed.y *= -1;
+        }
     }
 }

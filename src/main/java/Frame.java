@@ -1,55 +1,37 @@
+import move.Coordinate;
 import move.Move;
 import move.Paper;
 import move.Rock;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Frame extends JFrame {
-
     public Frame(String title, int width, int height) {
         setTitle(title);
         setSize(width, height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         List<Move> emojis = new ArrayList<>();
-        Random random = new Random();
 
         for (int i = 0; i < 50; i++) {
-            Rock rock = new Rock(random.nextInt(width), random.nextInt(height), 2, 2);
+            Rock rock = new Rock(Coordinate.generateRandomCoordinate(width, height),
+                    Coordinate.generateRandomSpeed());
             emojis.add(rock);
             add(rock.label);
 
-            Paper paper = new Paper(random.nextInt(width), random.nextInt(height), 2, 2);
+            Paper paper = new Paper(Coordinate.generateRandomCoordinate(width, height),
+                    Coordinate.generateRandomSpeed());
             emojis.add(paper);
             add(paper.label);
         }
 
-        Timer timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (Move emoji : emojis) {
-                    if (emoji.x + emoji.label.getWidth() > getWidth()) {
-                        emoji.velX = -2;
-                    }
-                    else if (emoji.x < 0) {
-                        emoji.velX = 2;
-                    }
-                    if (emoji.y + emoji.label.getHeight() > getHeight()) {
-                        emoji.velY = -2;
-                    }
-                    else if (emoji.y < 0) {
-                        emoji.velY = 2;
-                    }
-
-                    emoji.x += emoji.velX;
-                    emoji.y += emoji.velY;
-                    emoji.label.setBounds(emoji.x, emoji.y, emoji.label.getWidth(), emoji.label.getHeight());
-                }
+        Timer timer = new Timer(10, e -> {
+            for (Move emoji : emojis) {
+                emoji.checkBoundary(getWidth(), getHeight());
+                emoji.updatePosition();
+                emoji.label.setBounds(emoji.coordinate.x, emoji.coordinate.y, emoji.label.getWidth(), emoji.label.getHeight());
             }
         });
 
