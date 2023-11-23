@@ -1,4 +1,5 @@
 import move.Move;
+import move.Paper;
 import move.Rock;
 
 import javax.swing.*;
@@ -19,9 +20,13 @@ public class Frame extends JFrame {
         Random random = new Random();
 
         for (int i = 0; i < 50; i++) {
-            Move move = new Rock(random.nextInt(width), random.nextInt(height));
-            emojis.add(move);
-            add(move.label);
+            Rock rock = new Rock(random.nextInt(width), random.nextInt(height), 2, 2);
+            emojis.add(rock);
+            add(rock.label);
+
+            Paper paper = new Paper(random.nextInt(width), random.nextInt(height), 2, 2);
+            emojis.add(paper);
+            add(paper.label);
         }
 
         Timer timer = new Timer(10, new ActionListener() {
