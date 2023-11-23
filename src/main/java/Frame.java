@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame extends JFrame {
-    public Frame(String title, int width, int height) {
+    public Frame(String title, int width, int height, int initialCount) {
         setTitle(title);
         setSize(width, height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         List<Move> emojis = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < initialCount; i++) {
             Rock rock = new Rock(Coordinate.generateRandomCoordinate(width, height),
                     Coordinate.generateRandomSpeed());
             emojis.add(rock);
