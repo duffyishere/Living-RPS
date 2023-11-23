@@ -32,9 +32,22 @@ public class Frame extends JFrame {
         Timer timer = new Timer(30, e -> {
             for (int i = 0; i < emojis.size(); ++i) {
                 for (int j = i + 1; j < emojis.size(); ++j) {
-                    if (emojis.get(i).isColliding(emojis.get(j))) {
-                        int compareResult = emojis.get(i).compareTo(emojis.get(j));
-                        emojis.get(i).changeEmoji(compareResult, emojis.get(j));
+                    Move emoji1 = emojis.get(i);
+                    Move emoji2 = emojis.get(j);
+
+                    if (emoji1.isColliding(emoji2)) {
+                        int compareResult = emoji1.compareTo(emoji2);
+                        if (compareResult > 0) { // 이긴 경우
+                            remove(emoji2.label);
+                            Move newEmoji = emoji2.convertTo(emoji1.getClass());
+                            emojis.set(j, newEmoji);
+                            add(newEmoji.label);
+                        } else if (compareResult < 0) { // 진 경우
+                            remove(emoji1.label);
+                            Move newEmoji = emoji1.convertTo(emoji2.getClass());
+                            emojis.set(i, newEmoji);
+                            add(newEmoji.label);
+                        }
                     }
                 }
             }
