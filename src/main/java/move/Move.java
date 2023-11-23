@@ -11,6 +11,8 @@ public abstract class Move extends JComponent implements Comparable<Move> {
     public Coordinate speed;
     public JLabel label;
 
+    public abstract String getUnicode();
+
     public Move(String unicode, Coordinate coordinate, Coordinate speed) {
         this.coordinate = coordinate;
         this.speed = speed;
@@ -37,6 +39,21 @@ public abstract class Move extends JComponent implements Comparable<Move> {
         }
         if (this.coordinate.y < 0) {
             this.speed.y *= -1;
+        }
+    }
+
+    public boolean isColliding(Move another) {
+        Rectangle boundsThis = this.label.getBounds();
+        Rectangle boundsAnother = another.label.getBounds();
+
+        return boundsThis.intersects(boundsAnother);
+    }
+
+    public void changeEmoji(int compareResult, Move another) {
+        if (compareResult == 1) {
+            another.label.setText(this.getUnicode());
+        } else if (compareResult == -1) {
+            this.label.setText(another.getUnicode());
         }
     }
 }

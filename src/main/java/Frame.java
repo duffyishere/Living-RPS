@@ -28,6 +28,15 @@ public class Frame extends JFrame {
         }
 
         Timer timer = new Timer(10, e -> {
+            for (int i = 0; i < emojis.size(); ++i) {
+                for (int j = i + 1; j < emojis.size(); ++j) {
+                    if (emojis.get(i).isColliding(emojis.get(j))) {
+                        int compareResult = emojis.get(i).compareTo(emojis.get(j));
+                        emojis.get(i).changeEmoji(compareResult, emojis.get(j));
+                    }
+                }
+            }
+
             for (Move emoji : emojis) {
                 emoji.checkBoundary(getWidth(), getHeight());
                 emoji.updatePosition();
