@@ -9,7 +9,8 @@ public class Rock extends Move {
 
     @Override
     public int compareTo(Move o) {
-        if (o instanceof Paper) return -1;
+        if (o instanceof Scissor) return 1;
+        else if (o instanceof Paper) return -1;
         else return 0;
     }
 

@@ -1,7 +1,4 @@
-import move.Coordinate;
-import move.Move;
-import move.Paper;
-import move.Rock;
+import move.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -25,9 +22,14 @@ public class Frame extends JFrame {
                     Coordinate.generateRandomSpeed());
             emojis.add(paper);
             add(paper.label);
+
+            Scissor scissor = new Scissor(Coordinate.generateRandomCoordinate(width, height),
+                    Coordinate.generateRandomSpeed());
+            emojis.add(scissor);
+            add(scissor.label);
         }
 
-        Timer timer = new Timer(10, e -> {
+        Timer timer = new Timer(30, e -> {
             for (int i = 0; i < emojis.size(); ++i) {
                 for (int j = i + 1; j < emojis.size(); ++j) {
                     if (emojis.get(i).isColliding(emojis.get(j))) {
