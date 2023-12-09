@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame extends JFrame {
+    private static final MoveComparator moveComparator = new MoveComparator();
     public Frame(String title, int width, int height, int initialCount) {
         setTitle(title);
         setSize(width, height);
@@ -36,8 +37,8 @@ public class Frame extends JFrame {
                     Move emoji2 = emojis.get(j);
 
                     if (emoji1.isColliding(emoji2)) {
-                        int compareResult = emoji1.compareTo(emoji2);
-                        if (compareResult > 0) { // 이긴 경우
+                        int compareResult = moveComparator.compare(emoji1, emoji2);
+                        if (compareResult > 0) { // emoji1이 이긴 경우
                             remove(emoji2.label);
                             Move newEmoji = emoji2.convertTo(emoji1.getClass());
                             emojis.set(j, newEmoji);

@@ -8,13 +8,6 @@ public class Paper extends Move {
     }
 
     @Override
-    public int compareTo(Move o) {
-        if (o instanceof Rock) return 1;
-        else if (o instanceof Scissor) return -1;
-        else return 0;
-    }
-
-    @Override
     public String getUnicode() {
         return Paper.UNICODE;
     }

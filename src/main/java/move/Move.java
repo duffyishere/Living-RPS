@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public abstract class Move extends JComponent implements Comparable<Move> {
+public abstract class Move extends JComponent {
     public Coordinate coordinate;
     public Coordinate speed;
     public JLabel label;
